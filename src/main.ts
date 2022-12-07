@@ -1,6 +1,5 @@
 import { keyboard_neural_network } from "./networks/multi-neural-network";
 import { isMatrix } from "./tools/types";
-import { dot_product } from "./tools/utilities";
 
 (() => {
     console.log("Deeep-learner v1.0");
