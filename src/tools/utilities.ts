@@ -76,7 +76,3 @@ export function element_mult(delta: Scalar | Vector | Matrix, inputs: Scalar | V
 
     throw new Error("Not implemented yet.")
 }
-
-export function vector_substract(vector_a: Vector, vector_b: Vector) {
-
-}

@@ -12,20 +12,23 @@
 
 import { delta, dot_product, dot_product_matrix, element_mult } from "../tools/utilities";
 
-export function keyboard_neural_network(dataset: [number, number], goal: number) {
+export function keyboard_neural_network(inputs: [number, number], goal: number, epochs=10) {
     let weights_hidden = [
         [ 
             0.1, 0.2         
         ]
     ]
 
-    let pred_output = dot_product(dataset, weights_hidden[0])
-    if (pred_output) {
-        const loss_delta = delta(pred_output, goal)
-        const weights_delta = element_mult(loss_delta, dataset, 1e-2)
-        
+    for (let epoch = 0; epoch < epochs; epoch++) {
+        let pred_output = dot_product(inputs, weights_hidden[0])
+        if (pred_output) {
+            const raw_error = delta(pred_output, goal) as number
+            const weights_delta = element_mult(raw_error, inputs, 1e-3) as number[]
+            const loss = raw_error ** 2
+            weights_hidden[0] = weights_hidden[0].map((weight, index) => weight - weights_delta[index])
 
-        console.log("Pred Output", pred_output, "Goal", goal, "Loss", loss_delta, "Weights Delta", weights_delta)
+            console.log("Pred Output", pred_output, "Goal", goal, "Loss", loss, "Weights Delta", weights_delta)
+        }
     }
 }
 
